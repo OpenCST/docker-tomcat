@@ -1,5 +1,5 @@
 ARG TOMCAT_VERSION
-FROM tomcat:${TOMCAT_VERSION} as csttech-tomcat-builder
+FROM tomcat:${TOMCAT_VERSION}
 MAINTAINER Antonio Anzivino (antonio.anzivino@csttech.it)
 ARG POSTGRES_JDBC_VERSION="42.2.16"
 ARG ORACLE_JDBC_VERSION="19.7.0.0"

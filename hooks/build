@@ -1,0 +1,12 @@
+#!/bin/bash
+
+for tomcatVersion in "8.5" "9" ; do
+    for javaVersion in "jdk8-slim" "jdk11-slim" "jdk14" ; do
+        imageVersion="$tomcatVersion-$javaVersion"
+        echo "Building Tomcat $imageVersion"
+        docker build --build-arg TOMCAT_VERSION=$imageVersion -t csttech/tomcat:$imageVersion .;
+        docker push csttech/tomcat:$imageVersion
+    done
+done
+
+docker tag csttech/tomcat:$imageVersion csttech/tomcat:latest
