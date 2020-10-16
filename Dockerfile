@@ -5,12 +5,13 @@ ARG POSTGRES_JDBC_VERSION="42.2.16"
 ARG ORACLE_JDBC_VERSION="19.7.0.0"
 ARG LIFECYCLE_LISTENER_VERSION="1.0.1"
 ENV MAX_MEMORY_SIZE 4096
-ARG CONTEXT_NAME
 
 ADD https://repo1.maven.org/maven2/net/aschemann/tomcat/tomcat-lifecyclelistener/${LIFECYCLE_LISTENER_VERSION}/tomcat-lifecyclelistener-${LIFECYCLE_LISTENER_VERSION}.jar /usr/local/tomcat/lib
 ADD https://repo1.maven.org/maven2/org/postgresql/postgresql/${POSTGRES_JDBC_VERSION}/postgresql-${POSTGRES_JDBC_VERSION}.jar /usr/local/tomcat/lib
 ADD https://repo1.maven.org/maven2/com/oracle/database/jdbc/ojdbc8/${ORACLE_JDBC_VERSION}/ojdbc8-${ORACLE_JDBC_VERSION}.jar /usr/local/tomcat/lib
 COPY tomcat-${TOMCAT_MAJOR}/server.xml /usr/local/tomcat/conf/
+COPY phoenix.sh /usr/bin/phoenix
+RUN chmod +x /usr/bin/phoenix
 
 EXPOSE 8009
 EXPOSE 8080
@@ -21,10 +22,9 @@ ENV FILE_REPOSITORY_DIR /mnt/fileRepository
 ENV CATALINA_OPTS  -Xmx${MAX_MEMORY_SIZE}m -Duser.language=it \
                    -Dfile.encoding=UTF-8 \
                    -Dphoenix.config.location=${PHOENIX_CONFIG_LOCATION} \
-                   -Dphoenix.logs.dir=${PHOENIX_LOGS_DIR} \
-                   -Dorg.apache.catalina.startup.EXIT_ON_INIT_FAILURE=true
+                   -Dphoenix.logs.dir=${PHOENIX_LOGS_DIR}
 
-VOLUME /mnt/fileRepository
+VOLUME $FILE_REPOSITORY_DIR
 VOLUME /mnt/phoenix-logs
 VOLUME /usr/local/tomcat/logs
 
