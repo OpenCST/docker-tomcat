@@ -22,7 +22,8 @@ ENV FILE_REPOSITORY_DIR /mnt/fileRepository
 ENV CATALINA_OPTS  -Xmx${MAX_MEMORY_SIZE}m -Duser.language=it \
                    -Dfile.encoding=UTF-8 \
                    -Dphoenix.config.location=${PHOENIX_CONFIG_LOCATION} \
-                   -Dphoenix.logs.dir=${PHOENIX_LOGS_DIR}
+                   -Dphoenix.logs.dir=${PHOENIX_LOGS_DIR} \
+                   -Djava.awt.headless=true
 
 VOLUME $FILE_REPOSITORY_DIR
 VOLUME /mnt/phoenix-logs
