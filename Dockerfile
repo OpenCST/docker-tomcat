@@ -1,6 +1,6 @@
 ARG TOMCAT_VERSION
 FROM tomcat:${TOMCAT_VERSION}
-MAINTAINER Antonio Anzivino (antonio.anzivino@csttech.it)
+LABEL maintainer="Simone Besi (simone.besi@csttech.it)"
 ARG POSTGRES_JDBC_VERSION="42.2.16"
 ARG ORACLE_JDBC_VERSION="19.7.0.0"
 ARG LIFECYCLE_LISTENER_VERSION="1.0.1"
